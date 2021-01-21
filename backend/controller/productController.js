@@ -47,9 +47,9 @@ const createProduct = async (req, res) => {
 }
 
 
-const deleteProduct = async (res, req) => {
+const deleteProduct = async (req, res) => {
     try {
-        await Products.findByIdAndDelete(req.params.id)
+        await Product.findByIdAndDelete(req.params.id)
         res.json({ msg: "Deleted a Product" })
     } catch (err) {
         return res.status(500).json({ msg: err.message })
@@ -63,11 +63,11 @@ const updateProduct = async (req, res) => {
         const { product_id, title, price, description, countInStock, images, category } = req.body;
         if (!images) return res.status(400).json({ msg: "No image upload" })
 
-        await Products.findOneAndUpdate({ _id: req.params.id }, {
+        await Product.findOneAndUpdate({ _id: req.params.id }, {
             product_id, title: title.toLowerCase(), price, description, countInStock, images, category
         })
 
-        res.json({ msg: "Updated a Product" })
+        res.json({ msg: "Updated a Product" });
     } catch (err) {
         return res.status(500).json({ msg: err.message })
     }
