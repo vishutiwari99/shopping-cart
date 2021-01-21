@@ -19,6 +19,7 @@ function ProductScreen({ match, history }) {
         history.push("/cart");
     }
 
+
     useEffect(() => {
         if (product && match.params.id !== product._id) {
             dispatch(getProductDetails(match.params.id))
@@ -31,10 +32,10 @@ function ProductScreen({ match, history }) {
                 <>
                     <div className="productscreen__left">
                         <div className="left__image">
-                            <img src={product.imageUrl} alt={product.name} />
+                            <img src={product.image} alt={product.title} />
                         </div>
                         <div className="left__info">
-                            <p className="left__name">{product.name}</p>
+                            <p className="left__name">{product.title}</p>
                             <p>Price: ${product.price}</p>
                             <p>{product.description}</p>
                         </div>

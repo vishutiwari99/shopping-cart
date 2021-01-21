@@ -27,6 +27,9 @@ function SideDrawer({ show, click }) {
                 <li>
                     <Link to="/">Shop</Link>
                 </li>
+                <li>
+                    <Link to="/signin">Login</Link>
+                </li>
             </ul>
         </div>
     )

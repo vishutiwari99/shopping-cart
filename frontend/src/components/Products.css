@@ -9,6 +9,7 @@
     justify-content: space-between;
 }
 
+
 .product > img{
     height: 170px;
     border-radius: 8px;
@@ -42,6 +43,7 @@
     padding: 8px 16px;
     border: 1px solid #171717;
     font-size: 1rem;
+
 }
 
 .info__button:hover {

@@ -10,11 +10,14 @@ function Navbar({ click }) {
     const getCartCount = () => {
         return cartItems.reduce((qty, item) => qty + item.qty, 0);
     }
+
     return (
         <nav className="navbar">
             {/* logo */}
             <div className="navbar__logo">
-                <h2>Shopping Cart</h2>
+                <Link to="/">
+                    <h2>Shopping Cart</h2>
+                </Link>
             </div>
             {/* links */}
             <ul className="navbar__links">
@@ -32,6 +35,12 @@ function Navbar({ click }) {
                     <Link to="/">
                         Shop
                     </Link>
+                </li>
+                <li>
+                    {localStorage.getItem("authToken") ? <Link to="/signout" >Logout</Link> : <Link to="signin">
+                        Login
+                    </Link>}
+
                 </li>
             </ul>
             <div className="hamburger__menu" onClick={click}>

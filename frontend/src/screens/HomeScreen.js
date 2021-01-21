@@ -1,7 +1,8 @@
 import './HomeScreen.css'
 
 // Components
-import Products from '../components/Products'
+// import Products from '../components/Products'
+import ProductMenu from '../components/ProductMenu'
 
 // Actions
 import { getProducts as listproducts } from '../redux/actions/productActions'
@@ -22,7 +23,7 @@ function HomeScreen() {
             <h2 className="homescreen__title">Latest Products</h2>
             <div className="homescreen__products">
                 {loading ? <h2>Loading...</h2> : error ? <h2>{error}</h2> : products.map(product => (
-                    <Products key={product._id} productId={product._id}
+                    <ProductMenu key={product._id} productId={product._id}
                         name={product.name}
                         price={product.price}
                         description={product.description}
