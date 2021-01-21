@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 
 const getCategories = async (req, res) => {
@@ -44,7 +45,7 @@ const createCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
     try {
-        const products = await Products.findOne({
+        const products = await Product.findOne({
             category: req.params.id
         })
         if (products) return res.status(400).json({

@@ -1,11 +1,13 @@
 const express = require('express');
-const adminAuth = require('../middleware/adminAuth')
-const loginAuth = require('../middleware/loginAuth')
 const router = express.Router();
+// const adminAuth = require('../middleware/adminAuth')
+// const loginAuth = require('../middleware/loginAuth')
 
-const { createCategory, getCategories } = require('../controller/categoryController')
+const { createCategory, getCategories, deleteCategory, updateCategory } = require('../controller/categoryController')
 
-router.get('/category', loginAuth, adminAuth, getCategories);
-router.post('/category', loginAuth, adminAuth, createCategory);
+router.get('/categories', getCategories);
+router.post('/category', createCategory);
+router.delete('/category/:id', deleteCategory);
+router.put('/category/:id', updateCategory);
 
 module.exports = router;
