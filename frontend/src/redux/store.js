@@ -6,10 +6,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 // Reducers
 import { cartReducer } from './reducers/cartReducers'
 import { getProductDetailsReducer, getProductsReducer } from './reducers/productReducers'
+import { getAllCategoriesReducer, updateCategoryReducer, deleteCategoryReducer } from './reducers/categoryReducers'
 const reducer = combineReducers({
     cart: cartReducer,
     getProducts: getProductsReducer,
-    getProductDetails: getProductDetailsReducer
+    getProductDetails: getProductDetailsReducer,
+    getCategories: getAllCategoriesReducer,
+    updateCategory: updateCategoryReducer,
+    deleteCategory: deleteCategoryReducer,
 })
 
 const middleware = [thunk];
