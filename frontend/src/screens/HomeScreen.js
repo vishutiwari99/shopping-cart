@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 function HomeScreen() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const getProducts = useSelector(state => state.getProducts);
     const { products, loading, error } = getProducts
@@ -24,10 +24,10 @@ function HomeScreen() {
             <div className="homescreen__products">
                 {loading ? <h2>Loading...</h2> : error ? <h2>{error}</h2> : products.map(product => (
                     <ProductMenu key={product._id} productId={product._id}
-                        name={product.name}
+                        title={product.title}
                         price={product.price}
-                        description={product.description}
-                        imageUrl={product.imageUrl} />
+                        // category={product.category}
+                        imageUrl={product.images.url} />
                 ))}
             </div>
         </div>

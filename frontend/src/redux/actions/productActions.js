@@ -20,15 +20,16 @@ export const getProducts = () => async (dispatch) => {
 }
 
 
-export const getProductDetails = (id) => async (dispatch) => {
+export const getProductDetails = (id) => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.GET_PRODUCTS_DETAILS_REQUEST });
         const { data } = await axios.get(`/api/products/${id}`);
 
         dispatch({
             type: actionTypes.GET_PRODUCTS_DETAILS_SUCCESS,
-            payload: data
+            payload: data,
         })
+        localStorage.setItem("item", JSON.stringify(getState().getProductDetails.product));
     } catch (error) {
         dispatch({
             type: actionTypes.GET_PRODUCTS_DETAILS_FAIL,

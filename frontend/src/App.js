@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 // Screens
 import HomeScreen from './screens/HomeScreen'
@@ -31,9 +31,8 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/payment" component={PaymentScreen} />
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/product/:id" component={ProductScreen} />
+          <Route path="/product" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} />
-
           <Route exact path="/signin" component={FormScreen} />
           <Route
             exact
