@@ -1,10 +1,8 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './ProductScreen.css'
 
 // Actions
-
-import { getProductDetails } from '../redux/actions/productActions'
 import { addToCart } from '../redux/actions/cartActions'
 
 function ProductScreen({ match, history }) {

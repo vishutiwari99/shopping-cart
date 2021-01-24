@@ -8,21 +8,23 @@ import ProductMenu from '../components/ProductMenu'
 import { getProducts as listproducts } from '../redux/actions/productActions'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import Loading from '../components/Loading'
 function HomeScreen() {
 
     const dispatch = useDispatch();
 
     const getProducts = useSelector(state => state.getProducts);
-    const { products, loading, error } = getProducts
+    const { products, error, loading } = getProducts
 
     useEffect(() => {
         dispatch(listproducts())
     }, [dispatch])
+    if (loading) return <div className="loading"><Loading /></div>
     return (
         <div className="homescreen">
             <h2 className="homescreen__title">Latest Products</h2>
             <div className="homescreen__products">
-                {loading ? <h2>Loading...</h2> : error ? <h2>{error}</h2> : products.map(product => (
+                {loading ? <h2>Loading</h2> : error ? <h2>{error}</h2> : products.map(product => (
                     <ProductMenu key={product._id} productId={product._id}
                         title={product.title}
                         price={product.price}

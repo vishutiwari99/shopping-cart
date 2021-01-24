@@ -14,7 +14,7 @@ import ResetPasswordFormScreen from './screens/ResetPasswordFormScreen'
 import Navbar from './components/Navbar';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
-
+import Loading from './components/Loading'
 
 // Routing
 import PrivateRoute from './components/routing/PrivateRoute'
@@ -30,6 +30,7 @@ function App() {
       <main>
         <Switch>
           <PrivateRoute exact path="/payment" component={PaymentScreen} />
+          <Route exact path="/load" component={Loading} />
           <Route exact path="/" component={HomeScreen} />
           <Route path="/product" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} />

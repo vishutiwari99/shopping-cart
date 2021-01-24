@@ -1,9 +1,7 @@
 import React from 'react'
 import './ProductMenu.css'
-import { Link, useHistory, Redirect } from 'react-router-dom'
 import { createHashHistory } from 'history'
-
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getProductDetails } from '../redux/actions/productActions'
 
 
