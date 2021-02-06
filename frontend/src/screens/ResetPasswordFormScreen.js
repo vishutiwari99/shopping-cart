@@ -9,7 +9,7 @@ function ResetPasswordFormScreen({ match }) {
                 <header>
                     <div
                         className={
-                            "header-headings " + "reset-password"
+                            "header-headings reset-password"
                         }
                     >
                         <span>Reset your password</span>

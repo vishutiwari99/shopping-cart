@@ -1,14 +1,24 @@
 import './Navbar.css';
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../redux/actions/loginActions';
 
 
 function Navbar({ click }) {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const cart = useSelector(state => state.cart);
+    const islogin = useSelector(state => state.login.isLogin);
     const { cartItems } = cart;
 
     const getCartCount = () => {
         return cartItems.reduce((qty, item) => qty + item.qty, 0);
+    }
+
+    const logoutHandler = () => {
+        dispatch(logoutUser());
+        history.push('/signin')
+
     }
 
     return (
@@ -37,9 +47,8 @@ function Navbar({ click }) {
                     </Link>
                 </li>
                 <li>
-                    {localStorage.getItem("authToken") ? <Link to="/signout" >Logout</Link> : <Link to="signin">
-                        Login
-                    </Link>}
+                    {islogin && <h3 onClick={logoutHandler} >Logout</h3>}
+                    {!islogin && <Link to="/signin">Login</Link>}
 
                 </li>
             </ul>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import './ProductScreen.css'
 
 // Actions
 import { addToCart } from '../redux/actions/cartActions'
 
-function ProductScreen({ match, history }) {
+function ProductScreen({ history }) {
     const dispatch = useDispatch()
     const [qty, setQty] = useState(1)
     const item = JSON.parse(localStorage.getItem("item"));

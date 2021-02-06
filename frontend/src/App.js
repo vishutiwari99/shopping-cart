@@ -1,5 +1,5 @@
 import './App.css';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 // Screens
 import HomeScreen from './screens/HomeScreen'
@@ -23,6 +23,7 @@ import { useState } from 'react';
 function App() {
   const [sideToggle, setSideToggle] = useState(false)
   return (
+
     <Router>
       <Navbar click={() => setSideToggle(true)} />
       <SideDrawer show={sideToggle} click={() => setSideToggle(false)} />
@@ -32,12 +33,11 @@ function App() {
           <PrivateRoute exact path="/payment" component={PaymentScreen} />
           <Route exact path="/load" component={Loading} />
           <Route exact path="/" component={HomeScreen} />
-          <Route path="/product" component={ProductScreen} />
+          <Route exact path="/product" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} />
           <Route exact path="/signin" component={FormScreen} />
-          <Route
-            exact
-            path="/passwordreset/:resetToken"
+          <Route exact
+            path={"/passwordreset/:resetToken"}
             component={ResetPasswordFormScreen}
           />
         </Switch>

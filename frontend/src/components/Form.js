@@ -1,53 +1,34 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { loginUser } from '../redux/actions/loginActions'
 import "./Form.css";
 function Form({ option }) {
+    const dispatch = useDispatch();
     let history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const []
 
-    const [user, setUser] = useState({
+    const user = {
         email, password, confirmPassword
-    })
-
-    setUser
+    }
+    const login = useSelector(state => state.login.isLogin);
 
     useEffect(() => {
         if (localStorage.getItem("authToken")) {
             history.push("/");
         }
-    }, [history]);
+    }, [history, login]);
 
     // login completed
-    const loginHandler = async (e) => {
+    const loginHandler = (e) => {
         e.preventDefault();
-        const config = {
-            header: {
-                "Content-Type": "application/json",
-            },
-        };
-
-        try {
-            const { data } = await axios.post(
-                "/api/auth/login",
-                { email, password },
-                config
-            );
-
-            localStorage.setItem("authToken", data.token);
-            history.push("/");
-        } catch (error) {
-            setError(error.response.data.error);
-            setTimeout(() => {
-                setError("");
-            }, 5000);
-        }
-    };
+        dispatch(loginUser(user));
+    }
 
     // login completed
 
@@ -146,6 +127,7 @@ function Form({ option }) {
                     disabled={option === 3 ? true : false}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {/* {email, password} */}
                 <input
                     id="repeat-password"
                     name="repeat-password"
@@ -156,6 +138,7 @@ function Form({ option }) {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
+            {/* {user} */}
             <button className="btn-submit-form" type="submit">
                 {option === 1 ? "Sign in" : option === 2 ? "Sign up" : "Reset password"}
             </button>

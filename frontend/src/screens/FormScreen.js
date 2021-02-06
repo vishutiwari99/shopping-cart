@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './FormScreen.css'
 import Form from '../components/Form'
+import { useSelector } from 'react-redux';
 
 function FormScreen() {
+    const error = useSelector(state => state.login.error);
 
     const [option, setOption] = useState(1);
+    useEffect(() => {
+
+    }, [])
     return (
         <div className="grid">
             <div className="container">
@@ -14,7 +19,7 @@ function FormScreen() {
                             "header-headings " +
                             (option === 1 ? "sign-in" : option === 2 ? "sign-up" : "forgot")
                         }
-                    >
+                    >{error && <span>{error}</span>}
                         <span>Sign in to your account</span>
                         <span>Create an account</span>
                         <span>Reset your password</span>
@@ -39,5 +44,8 @@ function FormScreen() {
         </div>
     )
 }
+
+
+
 
 export default FormScreen

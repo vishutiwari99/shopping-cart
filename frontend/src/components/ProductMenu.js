@@ -1,17 +1,18 @@
 import React from 'react'
 import './ProductMenu.css'
-import { createHashHistory } from 'history'
 import { useDispatch } from 'react-redux'
 import { getProductDetails } from '../redux/actions/productActions'
+import { useHistory } from 'react-router-dom'
 
 
 function ProductMenu({ imageUrl, title, price, category, productId }) {
     let dispatch = useDispatch();
-    const hashHistory = createHashHistory();
+    const history = useHistory();
+
 
     const detailsProductHandler = () => {
         dispatch(getProductDetails(productId));
-        hashHistory.push(`/product`)
+        history.push(`/product`)
     }
 
     return (

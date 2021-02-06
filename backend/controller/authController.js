@@ -42,9 +42,9 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     const {
-        email,
-        password
+        object
     } = req.body;
+    const { email, password } = object;
     if (!email || !password) {
         return next(new ErrorResponse("Please provide an email and password", 400));
     }
@@ -53,6 +53,7 @@ exports.login = async (req, res, next) => {
         const user = await User.findOne({
             email
         }).select("+password");
+        console.log(user);
 
         if (!user) {
             return next(new ErrorResponse("Invalid Credentials", 401));
@@ -84,7 +85,7 @@ exports.forgotPassword = async (req, res, next) => {
             email
         });
         if (!user) {
-            return next(new ErrorResponse("Email couldn't be sent", 404));
+            return next(new ErrorResponse("Email is not registered", 404));
         }
 
         const resetToken = user.getResetPasswordToken();
