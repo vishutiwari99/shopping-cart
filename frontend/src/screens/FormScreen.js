@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import './FormScreen.css'
 import Form from '../components/Form'
+// import Loading from '../components/Loading'
 import { useSelector } from 'react-redux';
 
 function FormScreen() {
-    const error = useSelector(state => state.login.error);
-
+    const error = useSelector(state => state.login.error)
+    const message = useSelector(state => state.login.emailsent)
     const [option, setOption] = useState(1);
     useEffect(() => {
-
     }, [])
+    // if (loading) return <div className="loading"><Loading /></div>
     return (
         <div className="grid">
             <div className="container">
@@ -19,10 +20,10 @@ function FormScreen() {
                             "header-headings " +
                             (option === 1 ? "sign-in" : option === 2 ? "sign-up" : "forgot")
                         }
-                    >{error && <span>{error}</span>}
-                        <span>Sign in to your account</span>
-                        <span>Create an account</span>
-                        <span>Reset your password</span>
+                    >
+                        {error ? <span>{error}</span> : <span>Create an account</span>}
+                        {error ? <span>{error}</span> : <span>Sign in to your account</span>}
+                        {error ? <span>{error}</span> : message ? <span>{message}</span> : <span>Reset your password</span>}
                     </div>
                 </header>
 

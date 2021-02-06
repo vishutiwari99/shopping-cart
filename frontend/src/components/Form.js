@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { loginUser } from '../redux/actions/loginActions'
+import { loginUser, signupUser, forgetUserPassword } from '../redux/actions/loginActions'
 import "./Form.css";
 function Form({ option }) {
     const dispatch = useDispatch();
@@ -29,68 +28,17 @@ function Form({ option }) {
         e.preventDefault();
         dispatch(loginUser(user));
     }
-
-    // login completed
-
+    // signup completed
     const signupHandler = async (e) => {
         e.preventDefault();
-        const config = {
-            header: {
-                "Content-Type": "application/json",
-            },
-        };
-        if (password !== confirmPassword) {
-            setPassword("");
-            setConfirmPassword("");
-            setTimeout(() => {
-                setError("");
-            }, 5000);
-            return setError("Password do not match");
-        }
-
-        try {
-            const { data } = await axios.post(
-                "/api/auth/register",
-                { email, password, confirmPassword },
-                config
-            );
-            localStorage.setItem("authToken", data.token);
-            history.push("/");
-            alert("Registered");
-        } catch (error) {
-            setError(error.response.data.error);
-            setTimeout(() => {
-                setError("");
-            }, 5000);
-        }
+        dispatch(signupUser(user));
     };
 
     const forgetPasswordHandler = async (e) => {
         e.preventDefault();
-        const config = {
-            header: {
-                "Content-Type": "application/json",
-            },
-        };
-
-        try {
-            const { data } = await axios.post(
-                "/api/auth/forgotpassword",
-                {
-                    email,
-                },
-                config
-            );
-
-            setSuccess(data.data);
-        } catch (error) {
-            setError(error.response.data.error);
-            setEmail("");
-            setTimeout(() => {
-                setError("");
-            }, 5000);
-        }
+        dispatch(forgetUserPassword(user));
     };
+
     return (
         <form
             className="account-form"

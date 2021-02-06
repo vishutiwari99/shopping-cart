@@ -7,10 +7,13 @@ const sendEmail = require('../utils/sendEmail')
 
 exports.register = async (req, res, next) => {
     const {
+        object
+    } = req.body;
+    const {
         email,
         password,
         confirmPassword
-    } = req.body;
+    } = object;
 
     if (!email || !password || !confirmPassword) {
         return res.status(400).json({
@@ -77,15 +80,16 @@ exports.login = async (req, res, next) => {
 
 exports.forgotPassword = async (req, res, next) => {
     const {
-        email
+        object
     } = req.body;
+    const { email } = object;
 
     try {
         const user = await User.findOne({
             email
         });
         if (!user) {
-            return next(new ErrorResponse("Email is not registered", 404));
+            return (new ErrorResponse("Email is not registered", 404));
         }
 
         const resetToken = user.getResetPasswordToken();
