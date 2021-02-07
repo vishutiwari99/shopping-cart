@@ -37,7 +37,6 @@ function ProductMenu({ imageUrl, title, price, category, productId }) {
                             <span>Shop Now</span>
                         </div>
                     </div>
-                    {/* <div className="button-pill" type='button' onClick={detailsProductHandler}>Shop Now</div> */}
                 </div>
             </div>
 

@@ -9,8 +9,8 @@ function Form({ option }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+    // const [error, setError] = useState("");
+    // const [success, setSuccess] = useState("");
 
     const user = {
         email, password, confirmPassword
@@ -56,8 +56,6 @@ function Form({ option }) {
                     (option === 1 ? "sign-in" : option === 2 ? "sign-up" : "forgot")
                 }
             >
-                {error && <span className="error-message">{error}</span>}
-                {success && <span className="success-message">{success}</span>}
                 <input
                     id="email"
                     name="email"

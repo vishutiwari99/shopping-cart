@@ -26,7 +26,7 @@ function HomeScreen() {
         <div className="homescreen">
             <h2 className="homescreen__title">Latest Products</h2>
             <div className="homescreen__products">
-                {loading ? <h2>Loading</h2> : error ? <h2>{error}</h2> : products.map(product => (
+                {products.map(product => (
                     <ProductMenu key={product._id} productId={product._id}
                         title={product.title}
                         price={product.price}

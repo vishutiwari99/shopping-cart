@@ -5,18 +5,18 @@ export const getAllCategoriesReducer = (state = { category: [] }, action) => {
         case actionTypes.GET_CATEGORY_REQUEST:
             return {
                 loading: true,
-                category: [],
+                categories: [],
             };
         case actionTypes.GET_CATEGORY_SUCCESS:
             return {
                 loading: false,
-                category: action.payload,
+                categories: action.payload,
             };
 
         case actionTypes.GET_CATEGORY_FAIL:
             return {
-                loading: true,
-                category: action.payload,
+                loading: false,
+                categories: action.payload,
             };
 
         default:

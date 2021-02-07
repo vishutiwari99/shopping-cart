@@ -15,6 +15,7 @@ import Navbar from './components/Navbar';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 import Loading from './components/Loading'
+import Category from './components/admin/Category'
 
 // Routing
 import PrivateRoute from './components/routing/PrivateRoute'
@@ -40,6 +41,7 @@ function App() {
             path={"/passwordreset/:resetToken"}
             component={ResetPasswordFormScreen}
           />
+          <Route exact path="/cate" component={Category} />
         </Switch>
       </main>
     </Router>
