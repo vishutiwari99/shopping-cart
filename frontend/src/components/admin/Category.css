@@ -1,44 +1,116 @@
-.categories {
-  max-width: 700px;
+.category_conatiner {
+  max-width: 1024px;
+  margin: 120px auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 180px auto;
+
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
 }
-.categories form {
-  width: 290px;
-  margin-bottom: 20px;
+h2 {
+  margin-bottom: 24px;
+  color: #171717;
 }
-.categories label {
-  display: block;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+
+.category_form {
+  margin: 1rem;
 }
-.categories input,
-button {
-  height: 35px;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #555;
+
+.category-form-control {
+  padding: 7px 15px;
+  height: 34px;
+  box-sizing: border-box;
 }
-.categories input {
-  width: 210px;
-}
-.categories button {
-  width: 70px;
-  background: #555;
-  color: white;
-  margin-left: 10px;
-}
-.categories .row {
-  min-width: 290px;
+.category_row {
   display: flex;
   justify-content: space-between;
+}
+
+.category-btn {
+  padding: 9px 15px;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  margin-left: 16px;
+  height: 34px;
+  border: none;
+}
+
+.category-btn-primary {
+  color: #ffffff;
+  background-color: #4caf50;
+}
+
+.btn-default {
+  color: #ffffff;
+  background-color: #444;
+}
+
+.description {
+  font-size: 16px;
+}
+
+#productList {
+  margin: 18px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+#productList li {
+  max-width: 600px;
+  padding: 10px 20px;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 15px;
-  margin-top: 27px;
-  border: 1px solid #ccc;
+}
+
+#productList li .text {
+  font-size: 18px;
+  text-transform: capitalize;
+  color: #171717;
+  margin-right: 12rem;
+}
+
+#productList li:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+#productList li button {
+  text-align: right;
+  padding: 7px 15px;
+  margin-left: 10px;
+}
+
+#productList li button.category-delete {
+  background-color: red;
+  color: #fff;
+}
+
+#changeStyleBtn {
+  margin-right: 30px;
+}
+
+fieldset {
+  margin-top: 20px;
+}
+
+@media (max-width: 630px) {
+  .category_form {
+    margin: 1rem;
+    display: flex;
+  }
+  .category-btn-conatiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: center;
+    margin-right: 1rem;
+  }
+  .category-btn {
+    padding: 0px 15px;
+    margin-bottom: 0.2rem;
+  }
+  #productList li .text {
+    margin-right: 9rem;
+  }
 }
