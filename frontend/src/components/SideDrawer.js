@@ -1,10 +1,23 @@
 import './SideDrawer.css'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../redux/actions/loginActions';
+
+
 function SideDrawer({ show, click }) {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const islogin = useSelector(state => state.login.isLogin);
+
     const sideDrawerClass = ["sidedrawer"];
     if (show) {
         sideDrawerClass.push("show");
+    }
+
+    const logoutHandler = () => {
+        dispatch(logoutUser());
+        history.push('/signin')
+
     }
 
     const cart = useSelector(state => state.cart);
@@ -28,7 +41,12 @@ function SideDrawer({ show, click }) {
                     <Link to="/">Shop</Link>
                 </li>
                 <li>
-                    <Link to="/signin">Login</Link>
+                    {/* {islogin && <Link to="/" onClick={logoutHandler} >Logout</Link>}
+                    {!islogin && <Link to="/signin">Login</Link>} */}
+
+                    {islogin ? <Link onClick={logoutHandler} >Logout</Link> : <Link to="/signin">Login</Link>}
+
+
                 </li>
             </ul>
         </div>
