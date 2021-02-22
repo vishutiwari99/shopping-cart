@@ -16,6 +16,7 @@ import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 import Loading from './components/Loading'
 import Category from './components/admin/Category'
+import Product from './components/admin/Product'
 
 // Routing
 import PrivateRoute from './components/routing/PrivateRoute'
@@ -42,6 +43,7 @@ function App() {
             component={ResetPasswordFormScreen}
           />
           <Route exact path="/cate" component={Category} />
+          <Route exact path="/pro" component={Product} />
         </Switch>
       </main>
     </Router>
