@@ -22,7 +22,7 @@ router.post('/upload', (req, res) => {
             })
 
         const file = req.files.file;
-            if (file.size > 1024 * 1024) {
+        if (file.size > 1024 * 1024) {
             removeTmp(file.tempFilePath)
             return res.status(400).json({
                 msg: "Size too large"
@@ -63,30 +63,30 @@ router.post('/upload', (req, res) => {
 })
 
 // Delete image only admin can use
-// router.post('/destroy', auth, authAdmin, (req, res) => {
-//     try {
-//         const {
-//             public_id
-//         } = req.body;
-//         if (!public_id) return res.status(400).json({
-//             msg: 'No images Selected'
-//         })
+router.post('/destroy', (req, res) => {
+    try {
+        const {
+            public_id
+        } = req.body;
+        if (!public_id) return res.status(400).json({
+            msg: 'No images Selected'
+        })
 
-//         cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
-//             if (err) throw err;
+        cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
+            if (err) throw err;
 
-//             res.json({
-//                 msg: "Deleted Image"
-//             })
-//         })
+            res.json({
+                msg: "Deleted Image"
+            })
+        })
 
-//     } catch (err) {
-//         return res.status(500).json({
-//             msg: err.message
-//         })
-//     }
+    } catch (err) {
+        return res.status(500).json({
+            msg: err.message
+        })
+    }
 
-// })
+})
 
 
 const removeTmp = (path) => {
