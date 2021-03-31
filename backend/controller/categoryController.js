@@ -14,6 +14,8 @@ const getCategories = async (req, res) => {
 
 }
 
+
+
 const createCategory = async (req, res) => {
     try {
         // if user have role = 1 ---> admin

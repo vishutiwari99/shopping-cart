@@ -1,0 +1,20 @@
+.manage_product {
+  max-width: 1300px;
+  margin: 1rem auto;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.manage_product_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.manage_product_title {
+  font-size: 1.5rem;
+  color: #171717;
+  margin-bottom: 1rem;
+  margin-left: 8px;
+}

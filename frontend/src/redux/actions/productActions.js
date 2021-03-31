@@ -19,7 +19,6 @@ export const getProducts = () => async (dispatch) => {
     }
 }
 
-
 export const getProductDetails = (id) => async (dispatch, getState) => {
     try {
         dispatch({ type: actionTypes.GET_PRODUCTS_DETAILS_REQUEST });
@@ -29,6 +28,7 @@ export const getProductDetails = (id) => async (dispatch, getState) => {
             type: actionTypes.GET_PRODUCTS_DETAILS_SUCCESS,
             payload: data,
         })
+
         localStorage.setItem("item", JSON.stringify(getState().getProductDetails.product));
     } catch (error) {
         dispatch({
@@ -38,9 +38,4 @@ export const getProductDetails = (id) => async (dispatch, getState) => {
     }
 }
 
-export const removeProductDeatils = () => (dispatch) => {
-    dispatch({
-        type: actionTypes.GET_PRODUCTS_DETAILS_RESET
-    })
 
-}

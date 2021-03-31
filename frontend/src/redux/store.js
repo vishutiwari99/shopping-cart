@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 
 // Reducers
+import { editReducer } from './reducers/editReducer'
 import { cartReducer } from './reducers/cartReducers'
 import { loginReducer } from './reducers/loginReducers'
 import { getProductDetailsReducer, getProductsReducer } from './reducers/productReducers'
@@ -15,7 +16,8 @@ const reducer = combineReducers({
     getCategories: getAllCategoriesReducer,
     updateCategory: updateCategoryReducer,
     deleteCategory: deleteCategoryReducer,
-    login: loginReducer
+    login: loginReducer,
+    edit: editReducer,
 })
 
 const middleware = [thunk];
@@ -28,7 +30,9 @@ const INITIAL_STATE = {
     },
     login: {
         isLogin: islogin
-
+    },
+    edit: {
+        onedit: false
     }
 
 }

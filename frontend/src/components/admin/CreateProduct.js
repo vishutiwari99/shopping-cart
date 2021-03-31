@@ -2,43 +2,56 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import Loading from '../Loading'
-import './Product.css'
+import './CreateProduct.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategories } from '../../redux/actions/categoryActions'
+import { getProductDetails as listProduct } from '../../redux/actions/productActions';
+import { useParams } from 'react-router';
 
-
-function Product() {
-    const dispatch = useDispatch()
-    const [images, setImages] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [product, setProduct] = useState({
-        product_id: '',
-        title: '',
-        price: 0,
-        description: 'How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.',
-        content: 'Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.',
-        category: '',
-        _id: ''
-    });
+function CreateProduct() {
+    const dispatch = useDispatch();
+    const edit = useSelector(state => state.edit);
+    const { id } = useParams();
+    const [pic, setPic] = useState({});
     const getCategories = useSelector(state => state.getCategories);
+    const getProductDetails = useSelector(state => state.getProductDetails);
+    const { product } = getProductDetails;
+    // console.log("Product", product);
+    // console.log(images)
     const { categories } = getCategories;
-
-    const [onEdit, setOnEdit] = useState(false)
+    const [loading, setLoading] = useState(false);
     const [callback, setCallback] = useState(false);
+    console.log("Id", id);
+    const [products, setProducts] = useState(
+        {
+            product_id: '',
+            title: '',
+            countInStock: 0,
+            price: 0,
+            description: '',
+            category: '',
+            _id: ''
+        }
+    )
+
+    console.log("State of products", products)
+
+    const getStateofProduct = async () => {
+        const { data } = await axios.get(`/api/products/${id}`);
+        setProducts(data)
+        setPic(data.pic)
+
+    }
 
     useEffect(() => {
         dispatch(getAllCategories());
+        if (id) {
+            getStateofProduct();
+        }
+
     }, [dispatch, callback])
 
-    const initialState = {
-        product_id: '',
-        title: '',
-        price: 0,
-        description: 'How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.',
-        content: 'Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.',
-        category: '',
-        _id: ''
-    }
+
 
 
     const handleUpload = async e => {
@@ -62,11 +75,14 @@ function Product() {
             const res = await axios.post('/api/upload', formData, {
                 headers: { 'content-type': 'multipart/form-data' }
             })
+            console.log("Imaage url ", res.data)
+            await setPic(res.data);
+            console.log("Pic ", pic);
+            setCallback(!callback)
             setLoading(false)
-            setImages(res.data);
 
         } catch (err) {
-            alert(err.response.data.msg)
+            alert(err.response)
         }
     }
 
@@ -75,10 +91,10 @@ function Product() {
         try {
             // if (!isAdmin) return alert("You're not an admin")
             setLoading(true)
-            await axios.post('/api/destroy', { public_id: images.public_id }, {
+            await axios.post('/api/destroy', { public_id: pic.public_id }, {
             })
+            setPic(false);
             setLoading(false)
-            setImages(false)
         } catch (err) {
             alert(err.response.data.msg)
         }
@@ -86,35 +102,39 @@ function Product() {
 
     const handleChangeInput = e => {
         const { name, value } = e.target
-        setProduct({ ...product, [name]: value })
+        setProducts({
+            ...products, [name]: value
+        })
     }
+
 
     const handleSubmit = async e => {
         e.preventDefault()
         try {
-            // if(!isAdmin) return alert("You're not an admin")
-            if (!images) return alert("No Image Upload")
-
-            if (onEdit) {
-                await axios.put(`/api/products/${product._id}`, { ...product, images }, {
+            //  if(!isAdmin) return alert("You're not an admin")
+            if (!pic) return alert("No Image Upload Here")
+            if (id) {
+                await axios.put(`/api/products/${products._id}`, { ...products, pic }, {
                 })
             } else {
-                await axios.post('/api/products', { ...product, images }, {
+                await axios.post('/api/products', { ...products, pic }, {
                 })
             }
             setCallback(!callback)
-            alert("Product saved");
-            setProduct({});
-            setImages(false);
+            id ? alert("Product Updated") : alert("Product saved");
+            setProducts(false)
+            setPic(false)
         } catch (err) {
             alert(err.response.data.msg)
         }
     }
 
 
+    if (!products) return <div className="loading"><Loading /></div>
+    console.log("Yaha hai product", products);
 
 
-
+    // setCallback(!callback);
     return (
         <div className="product__main__container">
             <div className="product__header">
@@ -123,7 +143,7 @@ function Product() {
             <div className="product__container">
                 <div className="imageUpload">
                     {
-                        loading ? <div id="file_img"><Loading /></div> : images ? <div className="img_container"> <img className="product__img" src={images.url} alt="Images" /> <div className="remove__image" onClick={handleDestroy}><h3>Remove Image</h3></div> </div> :
+                        loading ? <div id="file_img"><Loading /></div> : pic.url ? <div className="img_container"> <img className="product__img" src={pic.url} alt="Images" /> <div className="remove__image" onClick={handleDestroy}><h3>{id ? "Change Image" : "Remove Image"}</h3></div> </div> :
                             <input type="file" name="file" id="file_up" onChange={handleUpload} />
 
                     }
@@ -131,17 +151,17 @@ function Product() {
 
                 <form className="product__form" onSubmit={handleSubmit}>
                     <div className="product__row">
-                        <input name="title" type="text" className="product__form-control" placeholder="Product Title" onChange={handleChangeInput} value={product.title} required />
+                        <input name="title" type="text" className="product__form-control" placeholder="Product Title" onChange={handleChangeInput} value={products.title} required />
 
-                        <input name="product_id" type="text" className="product__form-control" placeholder="Product Id" onChange={handleChangeInput} value={product.product_id} required />
+                        <input name="product_id" type="text" className="product__form-control" placeholder="Product Id" onChange={handleChangeInput} value={products.product_id} required />
                     </div>
                     <div className="product__row">
-                        <input name="countInStock" type="number" className="product__form-control" placeholder="No. of Stock" onChange={handleChangeInput} value={product.countInStock} required />
-                        <input name="price" type="number" className="product__form-control" placeholder="Price" onChange={handleChangeInput} value={product.price} required />
+                        <input name="countInStock" type="number" className="product__form-control" placeholder="No. of Stock" onChange={handleChangeInput} value={products.countInStock} required />
+                        <input name="price" type="number" className="product__form-control" placeholder="Price" onChange={handleChangeInput} value={products.price} required />
                     </div>
                     <div className="product__row">
                         <label id="label" for="cars">Category :</label>
-                        <select name="category" id="dropdown" onChange={handleChangeInput} value={product.category}>
+                        <select name="category" id="dropdown" onChange={handleChangeInput} value={products.category}>
                             {
                                 categories && (<>
                                     <option value="" >Please select a category</option>
@@ -161,21 +181,16 @@ function Product() {
 
                     <div className="product__row">
                         <label for="description" id="label">Product Description :</label>
-
                     </div>
                     <div className="product__row">
-                        <textarea id="textarea" name="description" value={product.description} />
+                        <textarea id="textarea" name="description" onChange={handleChangeInput} value={products.description} />
                     </div>
                     <div className="product__btn-container">
-                        <button className="product__btn" type="submit" >Save</button>
+                        <button className="product__btn" type="submit">{id ? "Update" : "Save"}</button>
                     </div>
                 </form>
-
             </div>
-
         </div>
     )
 }
-
-
-export default Product
+export default CreateProduct

@@ -20,7 +20,7 @@ function HomeScreen() {
         dispatch(listproducts())
     }, [dispatch])
 
-    if (loading) return <div className="loading"><Loading /></div>
+    if (!products) return <div className="loading"><Loading /></div>
 
     return (
         <div className="homescreen">
@@ -31,7 +31,7 @@ function HomeScreen() {
                         title={product.title}
                         price={product.price}
                         // category={product.category}
-                        imageUrl={product.images.url} />
+                        imageUrl={product.pic.url} />
                 ))}
             </div>
         </div>

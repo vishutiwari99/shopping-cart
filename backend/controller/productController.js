@@ -33,10 +33,11 @@ const createProduct = async (req, res) => {
             price,
             description,
             countInStock,
-            images,
+            pic,
             category,
         } = req.body;
-        if (!images)
+        console.log("This is request body", req.body);
+        if (!pic)
             return res.status(400).json({
                 msg: "No image upload",
             });
@@ -55,7 +56,7 @@ const createProduct = async (req, res) => {
             price,
             description,
             countInStock,
-            images,
+            pic,
             category,
         });
 
@@ -92,10 +93,10 @@ const updateProduct = async (req, res) => {
             price,
             description,
             countInStock,
-            images,
+            pic,
             category,
         } = req.body;
-        if (!images)
+        if (!pic)
             return res.status(400).json({
                 msg: "No image upload",
             });
@@ -110,7 +111,7 @@ const updateProduct = async (req, res) => {
                 price,
                 description,
                 countInStock,
-                images,
+                pic,
                 category,
             }
         );

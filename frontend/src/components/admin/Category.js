@@ -3,7 +3,7 @@ import './Category.css'
 import Loading from '../Loading'
 
 
-import { getAllCategories, deleteCategory } from '../../redux/actions/categoryActions'
+import { getAllCategories, } from '../../redux/actions/categoryActions'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';

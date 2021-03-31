@@ -16,11 +16,14 @@ import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 import Loading from './components/Loading'
 import Category from './components/admin/Category'
-import Product from './components/admin/Product'
+import CreateProduct from './components/admin/CreateProduct'
 
 // Routing
 import PrivateRoute from './components/routing/PrivateRoute'
 import { useState } from 'react';
+import ProductDetailsScreen from './screens/ProductDetailsScreen';
+
+import ManageProductScreen from './components/admin/ManageProductScreen';
 
 function App() {
   const [sideToggle, setSideToggle] = useState(false)
@@ -35,7 +38,7 @@ function App() {
           <PrivateRoute exact path="/payment" component={PaymentScreen} />
           <Route exact path="/load" component={Loading} />
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/product" component={ProductScreen} />
+          <Route exact path="/product" component={ProductDetailsScreen} />
           <Route exact path="/cart" component={CartScreen} />
           <Route exact path="/signin" component={FormScreen} />
           <Route exact
@@ -43,7 +46,9 @@ function App() {
             component={ResetPasswordFormScreen}
           />
           <Route exact path="/cate" component={Category} />
-          <Route exact path="/pro" component={Product} />
+          <Route path="/admin/pro/:id" component={CreateProduct} />
+          <Route path="/admin/pro" component={CreateProduct} />
+          <Route exact path="/m" component={ManageProductScreen} />
         </Switch>
       </main>
     </Router>
