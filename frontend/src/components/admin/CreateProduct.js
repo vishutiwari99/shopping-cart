@@ -10,18 +10,12 @@ import { useParams } from 'react-router';
 
 function CreateProduct() {
     const dispatch = useDispatch();
-    const edit = useSelector(state => state.edit);
     const { id } = useParams();
     const [pic, setPic] = useState({});
     const getCategories = useSelector(state => state.getCategories);
-    const getProductDetails = useSelector(state => state.getProductDetails);
-    const { product } = getProductDetails;
-    // console.log("Product", product);
-    // console.log(images)
     const { categories } = getCategories;
     const [loading, setLoading] = useState(false);
     const [callback, setCallback] = useState(false);
-    console.log("Id", id);
     const [products, setProducts] = useState(
         {
             product_id: '',
@@ -33,8 +27,13 @@ function CreateProduct() {
             _id: ''
         }
     )
+    useEffect(() => {
+        dispatch(getAllCategories());
+        if (id) {
+            getStateofProduct();
+        }
 
-    console.log("State of products", products)
+    }, [])
 
     const getStateofProduct = async () => {
         const { data } = await axios.get(`/api/products/${id}`);
@@ -43,13 +42,6 @@ function CreateProduct() {
 
     }
 
-    useEffect(() => {
-        dispatch(getAllCategories());
-        if (id) {
-            getStateofProduct();
-        }
-
-    }, [dispatch, callback])
 
 
 
@@ -122,13 +114,10 @@ function CreateProduct() {
             }
             setCallback(!callback)
             id ? alert("Product Updated") : alert("Product saved");
-            setProducts(false)
-            setPic(false)
         } catch (err) {
-            alert(err.response.data.msg)
+            alert(err.response)
         }
     }
-
 
     if (!products) return <div className="loading"><Loading /></div>
     console.log("Yaha hai product", products);
